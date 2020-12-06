@@ -109,7 +109,8 @@ export class AppComponent {
     html2canvas(document.querySelector('#one-page')).then((canvas) => {
       const a = document.createElement('a');
       a.href = canvas.toDataURL();
-      a.download = 'screenshot.png';
+      const dateTime = moment().format('วันที่ DD_MM_YY เวลา HH_mm_ss');
+      a.download = `ข้อมูลคุณภาพอากาศ${dateTime}.png`;
       a.click();
     });
   }
