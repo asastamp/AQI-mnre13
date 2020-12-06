@@ -11,10 +11,10 @@ export class AppService {
   retrieveData() {
     return forkJoin([
       this.http.get(
-        `http://air4thai.pcd.go.th/services/getNewAQI_JSON.php?region=1`
+        `https://cors-anywhere.herokuapp.com/http://air4thai.pcd.go.th/services/getNewAQI_JSON.php?region=1`
       ),
       this.http.get(
-        `http://air4thai.pcd.go.th/services/getNewAQI_JSON.php?region=3`
+        `https://cors-anywhere.herokuapp.com/http://air4thai.pcd.go.th/services/getNewAQI_JSON.php?region=3`
       ),
     ]).pipe(
       map(([bangkok, west]) => {
