@@ -8,7 +8,7 @@
   </div>
 
   <div class="map-section">
-    <img class="map" src="/assets/east.png" alt="">
+    <img class="map" src="./assets/east.png" alt="">
     <ng-container *ngFor="let pin of pins">
       <svg id="Layer_1" style="width: 32px; height: 32px;"  [ngStyle]="{'top': pin.x, 'left': pin.y, 'fill': pin.color }" stroke="black" stroke-width="14" class="pin" enable-background="new 0 0 512 512" height="512" viewBox="0 0 512 512" width="512" xmlns="http://www.w3.org/2000/svg">
         <g>
