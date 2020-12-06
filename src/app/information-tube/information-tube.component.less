@@ -1,0 +1,60 @@
+.tube {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+
+  background-color: white;
+  padding: 4px;
+  height: 25px;
+  border-radius: 20px;
+  font-size: 14px;
+
+  > * {
+    padding: 2px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    position: relative;
+
+    > .label {
+      position: absolute;
+      top: 32px;
+    }
+  }
+
+  > .very-good {
+    border-radius: 20px 0 0 20px;
+    grid-column-start: 1;
+    grid-column-end: 2;
+
+    background-color: #3cccff;
+  }
+
+  > .good {
+    grid-column-start: 2;
+    grid-column-end: 3;
+
+    background-color: #92d050;
+  }
+
+  > .neutral {
+    grid-column-start: 3;
+    grid-column-end: 4;
+
+    background-color: #fdff00;
+  }
+
+  > .bad {
+    grid-column-start: 4;
+    grid-column-end: 5;
+
+    background-color: #ffa200;
+  }
+
+  > .very-bad {
+    border-radius: 0 20px 20px 0;
+    grid-column-start: 5;
+    grid-column-end: 6;
+
+    background-color: #ff3c3a;
+  }
+}

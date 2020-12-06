@@ -19,10 +19,10 @@
   position: relative;
 
   display: grid;
-  grid-gap: 30px;
-  grid-template-rows: 150px 100px 1000px;
+  grid-row-gap: 30px;
+  grid-template-rows: 150px 250px 1000px;
   grid-template-columns: 1fr;
-  align-items: center;
+  align-items: start;
 }
 
 .header {
@@ -49,6 +49,12 @@
   }
 }
 
+.information-section {
+  display: grid;
+  grid-row-gap: 40px;
+  grid-row: 2;
+}
+
 .pin-index {
   background-color: white;
   font-size: 9px;
@@ -58,70 +64,6 @@
   position: absolute;
   top: 7px;
   left: 8px;
-}
-
-.tube {
-  display: grid;
-  grid-template-columns: repeat(5, 1fr);
-
-  background-color: white;
-  grid-row: 2;
-  grid-column-start: 1;
-  grid-column-end: 3;
-  padding: 4px;
-  height: 25px;
-  border-radius: 20px;
-  font-size: 14px;
-
-  > * {
-    padding: 2px;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    position: relative;
-
-    > .label {
-      position: absolute;
-      top: -25px;
-    }
-  }
-
-  > .very-good {
-    border-radius: 20px 0 0 20px;
-    grid-column-start: 1;
-    grid-column-end: 2;
-
-    background-color: #3cccff;
-  }
-
-  > .good {
-    grid-column-start: 2;
-    grid-column-end: 3;
-
-    background-color: #92d050;
-  }
-
-  > .neutral {
-    grid-column-start: 3;
-    grid-column-end: 4;
-
-    background-color: #fdff00;
-  }
-
-  > .bad {
-    grid-column-start: 4;
-    grid-column-end: 5;
-
-    background-color: #ffa200;
-  }
-
-  > .very-bad {
-    border-radius: 0 20px 20px 0;
-    grid-column-start: 5;
-    grid-column-end: 6;
-
-    background-color: #ff3c3a;
-  }
 }
 
 .map-section {
@@ -164,22 +106,27 @@
   }
 
   > .location {
-    padding: 5px;
-    font-weight: 500;
+    padding: 2px;
+    font-weight: 600;
+    font-size: 14px;
     text-align: center;
     background-color: #cffb7b;
     border-bottom: 1px solid black;
   }
   > .content {
     display: grid;
-    grid-template-columns: 1fr 2fr;
-    grid-template-rows: 10px min-content;
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: 12px min-content;
     grid-auto-flow: column;
     text-align: center;
     vertical-align: middle;
     > .label {
       font-size: 8px;
       color: grey;
+    }
+
+    > .value {
+      font-size: 24px;
     }
     & > :first-child,
     & > :nth-child(2) {

@@ -22,8 +22,25 @@ export class AppComponent {
     veryBad: '#FF3C3A',
   };
   dateTime: string;
-
+  aqiTube;
+  pm25Tube;
   constructor(private service: AppService) {
+    this.aqiTube = {
+      header: 'ความหมายของสี AQI',
+      veryGood: '0-25',
+      good: '26-50',
+      normal: '51-100',
+      bad: '101-200',
+      veryBad: '201 ขึ้นไป',
+    };
+    this.pm25Tube = {
+      header: 'ความหมายของสี PM2.5 (µg/m³)',
+      veryGood: '0-25',
+      good: '26-37',
+      normal: '38-50',
+      bad: '51-90',
+      veryBad: '90 ขึ้นไป',
+    };
     moment.locale('th');
     this.dateTime = this.toBuddhistYear(
       moment(),
@@ -60,6 +77,7 @@ export class AppComponent {
         tooltipX: pin.tooltipX,
         tooltipY: pin.tooltipY,
         color: this.calcAQIvalue(+stations[index].LastUpdate.AQI.aqi),
+        colorPM25: this.calcpm25value(+stations[index].LastUpdate.PM25.value),
         provinceColor: this.getProvinceColor(stations[index].areaTH),
         index: i + 1,
       };
@@ -89,6 +107,20 @@ export class AppComponent {
     } else if (value >= 101 && value < 201) {
       return this.colors.bad;
     } else if (value >= 201) {
+      return this.colors.veryBad;
+    }
+  }
+
+  calcpm25value(value) {
+    if (value >= 0 && value < 26) {
+      return this.colors.veryGood;
+    } else if (value >= 26 && value < 38) {
+      return this.colors.good;
+    } else if (value >= 38 && value < 51) {
+      return this.colors.normal;
+    } else if (value >= 51 && value <= 90) {
+      return this.colors.bad;
+    } else if (value > 90) {
       return this.colors.veryBad;
     }
   }

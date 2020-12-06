@@ -7,6 +7,11 @@
     <span class="header-date-time"> {{ dateTime }} </span>
   </div>
 
+  <div class="information-section">
+    <app-information-tube class="aqi-tube" [tube]="aqiTube"></app-information-tube>
+    <app-information-tube class="pm25-tube" [tube]="pm25Tube"></app-information-tube>
+  </div>
+
   <div class="map-section">
     <img class="map" src="./assets/east.png" alt="">
     <ng-container *ngFor="let pin of pins;">
@@ -20,21 +25,14 @@
         <div class="location" [ngStyle]="{'background-color': pin.provinceColor }">  {{ pin.location }} </div>
         <div class="content">
           <div class="label aqi-label" [ngStyle]="{'background-color': pin.color }">AQI</div>
-          <div class="aqi" [ngStyle]="{'background-color': pin.color }"> {{ pin.aqi }} </div>
-          <div class="label pm25-label"> PM <sub>2.5</sub> (µg/m³)</div>
-          <div class="pm25"> {{ pin.pm25 }} </div>
+          <div class="value aqi" [ngStyle]="{'background-color': pin.color }"> {{ pin.aqi }} </div>
+          <div class="label pm25-label" [ngStyle]="{'background-color': pin.colorPM25 }"> PM <sub>2.5</sub></div>
+          <div class="value pm25" [ngStyle]="{'background-color': pin.colorPM25 }"> {{ pin.pm25 }} </div>
         </div>
       </div>
     </ng-container>
   </div>
 
-  <div class="tube">
-    <div class="very-good"> <div class="label">0-25</div> ดีมาก </div>
-    <div class="good"> <div class="label">26-50</div> ดี </div>
-    <div class="neutral"> <div class="label">51-100</div> ปานกลาง</div>
-    <div class="bad"> <div class="label">101-200</div>  เริ่มมีผลกระทบต่อสุขภาพ</div>
-    <div class="very-bad"> <div class="label">201 ขึ้นไป</div>  มีผลกระทบต่อสุขภาพ</div>
-  </div>
 
   <div class="footer">
     <img class="banner-img" src="./assets/mnre.png" alt="">
