@@ -10,9 +10,9 @@
     background-color: darken(mediumaquamarine, 10%);
   }
 }
+
 .container {
   width: 900px;
-  height: 1300px;
   background-color: #89d8d3;
   padding: 20px 50px;
   box-sizing: border-box;
@@ -20,7 +20,7 @@
 
   display: grid;
   grid-gap: 30px;
-  grid-template-rows: 150px 100px 800px;
+  grid-template-rows: 150px 100px 1000px;
   grid-template-columns: 1fr;
   align-items: center;
 }
@@ -28,7 +28,7 @@
 .header {
   display: grid;
   align-items: center;
-  grid-template-columns: 200px calc(100% - 200px);
+  grid-template-columns: 150px calc(100% - 150px);
   grid-template-rows: 50px 50px 30px;
   color: darken(#7ac141, 10%);
   grid-column-start: 1;
@@ -186,14 +186,14 @@
 
   > .location {
     padding: 5px;
-    font-weight: 600;
+    font-weight: 500;
     text-align: center;
     background-color: #cffb7b;
     border-bottom: 1px solid black;
   }
   > .content {
     display: grid;
-    grid-template-columns: repeat(2, 1fr);
+    grid-template-columns: 1fr 2fr;
     grid-template-rows: 10px min-content;
     grid-auto-flow: column;
     text-align: center;
@@ -217,38 +217,35 @@
   position: absolute;
   left: 0;
   bottom: 0;
-  height: 100px;
+  height: 110px;
   width: 100%;
   box-sizing: border-box;
   padding: 10px 5px;
   font-size: 14px;
-}
 
-.footer-row {
-  display: flex;
-  justify-content: space-between;
-  padding: 4px 20px;
-
-  > .credit.item {
-    justify-self: center;
-
-    > .credit-hader {
-      margin-right: 5px;
-    }
-  }
-
-  > .item {
+  > .footer-row {
     display: flex;
-    align-items: center;
-    margin-right: 10px;
+    justify-content: space-evenly;
+    padding: 4px 20px;
 
-    > .logo {
-      padding-right: 5px;
+    > .credit.item {
+      justify-self: center;
+
+      > .credit-hader {
+        margin-right: 5px;
+      }
+    }
+
+    > .item {
+      display: flex;
+      align-items: center;
+      margin-right: 10px;
+
+      > .logo {
+        width: 15px;
+        height: 15px;
+        padding-right: 5px;
+      }
     }
   }
-}
-
-.logo {
-  width: 15px;
-  height: 15px;
 }
