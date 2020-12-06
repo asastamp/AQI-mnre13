@@ -123,6 +123,10 @@
           }
         }
       }
-    }},
-  "defaultProject": "aqi"
+    }
+  },
+  "defaultProject": "aqi",
+  "cli": {
+    "analytics": false
+  }
 }
