@@ -44,7 +44,7 @@ export class AppComponent {
 
   constructOutput(stations) {
     const output = [];
-    pins.forEach((pin) => {
+    pins.forEach((pin, i) => {
       const index = stations.findIndex(
         (station) => station.stationID === pin.stationId
       );
@@ -61,6 +61,7 @@ export class AppComponent {
         tooltipY: pin.tooltipY,
         color: this.calcAQIvalue(+stations[index].LastUpdate.AQI.aqi),
         provinceColor: this.getProvinceColor(stations[index].areaTH),
+        index: i + 1,
       };
       output.push(shownData);
     });
