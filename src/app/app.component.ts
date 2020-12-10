@@ -1,10 +1,9 @@
 import { Component } from '@angular/core';
 import html2canvas from 'html2canvas';
-import Canvg from 'canvg';
-import { AppService } from './app.service';
-import { pins } from './app.metadata';
-import { toPng, toJpeg, toBlob, toPixelData, toSvg } from 'html-to-image';
 import * as moment from 'moment';
+
+import { AppService } from './app.service';
+import { pins, config, colors, provinceColor } from './app.metadata';
 
 @Component({
   selector: 'app-root',
@@ -12,54 +11,57 @@ import * as moment from 'moment';
   styleUrls: ['./app.component.less'],
 })
 export class AppComponent {
-  title = 'aqi';
+  header: string;
+  tubeData;
+  cache;
   pins: Array<any>;
-  colors = {
-    veryGood: '#3CCCFF',
-    good: '#92D050',
-    normal: '#FDFF00',
-    bad: '#FFA200',
-    veryBad: '#FF3C3A',
-  };
-  dateTime: string;
-  aqiTube;
-  pm25Tube;
+
+  stations;
+
   constructor(private service: AppService) {
-    this.aqiTube = {
-      header: 'ความหมายของสี AQI',
-      veryGood: '0-25',
-      good: '26-50',
-      normal: '51-100',
-      bad: '101-200',
-      veryBad: '201 ขึ้นไป',
-    };
-    this.pm25Tube = {
-      header: 'ความหมายของสี PM2.5 (µg/m³)',
-      veryGood: '0-25',
-      good: '26-37',
-      normal: '38-50',
-      bad: '51-90',
-      veryBad: '90 ขึ้นไป',
-    };
-    moment.locale('th');
-    this.dateTime = this.toBuddhistYear(
-      moment(),
-      'วันที่ D MMMM YYYY เวลา HH:00 น.'
-    );
+    this.initData();
     this.service.retrieveData().subscribe((stations) => {
-      this.pins = this.constructOutput(stations);
+      this.stations = stations;
+      this.cache.aqi = this.constructOutput(stations, 'aqi');
+      this.pins = this.constructOutput(stations, 'aqi');
     });
   }
 
-  toBuddhistYear(moment, format) {
-    var christianYear = moment.format('YYYY');
-    var buddhishYear = (parseInt(christianYear) + 543).toString();
-    return moment
-      .format(format.replace('YYYY', buddhishYear))
-      .replace(christianYear, buddhishYear);
+  initData() {
+    this.header = config.header.aqi;
+    this.tubeData = config.tube.aqi;
+    this.cache = {};
+  }
+  onSelectedButton(event) {
+    const id = event.target.id;
+    if (!id || !id.startsWith('menu-')) {
+      return;
+    }
+    const type = id.split('menu-')[1];
+    this.header = config.header[type];
+    this.tubeData = config.tube[type];
+    this.toggleButton(event.target);
+    if (this.cache.hasOwnProperty(type)) {
+      this.pins = this.cache[type];
+      return;
+    }
+    this.pins = this.constructOutput(this.stations, type);
   }
 
-  constructOutput(stations) {
+  toggleButton(target) {
+    [].slice
+      .call(target.parentElement.querySelectorAll('.btn'))
+      .forEach((item) => {
+        item.classList.remove('btn-selected');
+      });
+    target.classList.add('btn-selected');
+  }
+
+  constructOutput(stations, type: string) {
+    if (!stations) {
+      return;
+    }
+    const id = type.toUpperCase();
     const output = [];
     pins.forEach((pin, i) => {
       const index = stations.findIndex(
@@ -70,14 +72,15 @@ export class AppComponent {
       }
       const shownData = {
         location: stations[index].areaTH.split(',')[0],
-        aqi: stations[index].LastUpdate.AQI.aqi,
-        pm25: stations[index].LastUpdate.PM25.value,
+        value: stations[index].LastUpdate[id][config.path[type]],
         x: pin.x,
         y: pin.y,
         tooltipX: pin.tooltipX,
         tooltipY: pin.tooltipY,
-        color: this.calcAQIvalue(+stations[index].LastUpdate.AQI.aqi),
-        colorPM25: this.calcpm25value(+stations[index].LastUpdate.PM25.value),
+        province: pin.province,
+        color: this[`calc${id}value`](
+          +stations[index].LastUpdate[id][config.path[type]]
+        ),
         provinceColor: this.getProvinceColor(stations[index].areaTH),
         index: i + 1,
       };
@@ -86,56 +89,42 @@ export class AppComponent {
     return output;
   }
 
-  onAQIChanged(event, i) {
-    if (typeof +event.target.value === 'number') {
-      this.updatePins(i, +event.target.value);
-    }
-  }
-
-  updatePins(index: number, value: number) {
-    this.pins[index].color = this.calcAQIvalue(value);
-    this.pins[index].aqi = value;
-  }
-
   calcAQIvalue(value) {
     if (value >= 0 && value < 26) {
-      return this.colors.veryGood;
+      return colors.veryGood;
     } else if (value >= 26 && value < 51) {
-      return this.colors.good;
+      return colors.good;
     } else if (value >= 51 && value < 101) {
-      return this.colors.normal;
+      return colors.normal;
     } else if (value >= 101 && value < 201) {
-      return this.colors.bad;
+      return colors.bad;
     } else if (value >= 201) {
-      return this.colors.veryBad;
+      return colors.veryBad;
     }
   }
 
-  calcpm25value(value) {
+  calcPM25value(value) {
     if (value >= 0 && value < 26) {
-      return this.colors.veryGood;
+      return colors.veryGood;
     } else if (value >= 26 && value < 38) {
-      return this.colors.good;
+      return colors.good;
     } else if (value >= 38 && value < 51) {
-      return this.colors.normal;
+      return colors.normal;
     } else if (value >= 51 && value <= 90) {
-      return this.colors.bad;
+      return colors.bad;
     } else if (value > 90) {
-      return this.colors.veryBad;
+      return colors.veryBad;
     }
   }
 
   getProvinceColor(value) {
     const [details, province] = value.split(',');
-    const mapProvince = {
-      ชลบุรี: '#FCE0B8',
-      ฉะเชิงเทรา: '#FDFF73',
-      ระยอง: '#DEFCD8',
-      จันทบุรี: '#FDCAF3',
-      สมุทรปราการ: '#B3EDFB',
-      ตราด: '#B6C1FC',
-    };
-    return mapProvince[province.trim()];
+    return provinceColor[province.trim()];
+  }
+
+  updatePins(index: number, value: number) {
+    this.pins[index].color = this.calcAQIvalue(value);
+    this.pins[index].aqi = value;
   }
 
   async takeScreenshot() {
