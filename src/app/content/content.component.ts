@@ -1,10 +1,11 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, ViewEncapsulation } from '@angular/core';
 import * as moment from 'moment';
 
 @Component({
   selector: 'app-content',
   templateUrl: './content.component.html',
   styleUrls: ['./content.component.less'],
+  encapsulation: ViewEncapsulation.None,
 })
 export class ContentComponent {
   @Input() header: string;

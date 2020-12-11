@@ -82,11 +82,18 @@ export class AppComponent {
           +stations[index].LastUpdate[id][config.path[type]]
         ),
         provinceColor: this.getProvinceColor(stations[index].areaTH),
+        isValid: this.isValidValue(stations[index].LastUpdate),
         index: i + 1,
       };
       output.push(shownData);
     });
     return output;
+  }
+
+  isValidValue({ date, time }) {
+    const dateTimeValue = moment(`${date} ${time}`);
+    const diff = moment().diff(dateTimeValue, 'hours');
+    return diff <= 1;
   }
 
   calcAQIvalue(value) {
