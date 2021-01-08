@@ -1,0 +1,29 @@
+<div class="header-container">
+  <img class="logo" src="assets/logo.png" routerLink="/" />
+  <nav class="nav">
+    <div
+      class="nav-li"
+      routerLink="/"
+      routerLinkActive="selected"
+      [routerLinkActiveOptions]="{ exact: true }"
+    >
+      Home
+    </div>
+    <div
+      class="nav-li"
+      routerLink="/dashboard"
+      routerLinkActive="selected"
+      [routerLinkActiveOptions]="{ exact: true }"
+    >
+      Dashboard
+    </div>
+    <div
+      class="nav-li"
+      routerLink="/pin-manager"
+      routerLinkActive="selected"
+      [routerLinkActiveOptions]="{ exact: true }"
+    >
+      Management
+    </div>
+  </nav>
+</div>

@@ -11,10 +11,10 @@ export class AppService {
   retrieveData() {
     return forkJoin([
       this.http.get(
-        `http://air4thai.pcd.go.th/services/getNewAQI_JSON.php?region=1`
+        `https://cors-anywhere.herokuapp.com/http://air4thai.pcd.go.th/services/getNewAQI_JSON.php?region=1`
       ),
       this.http.get(
-        `http://air4thai.pcd.go.th/services/getNewAQI_JSON.php?region=3`
+        `https://cors-anywhere.herokuapp.com/http://air4thai.pcd.go.th/services/getNewAQI_JSON.php?region=3`
       ),
     ]).pipe(
       map(([bangkok, west]) => {
@@ -25,13 +25,45 @@ export class AppService {
     );
   }
 
-  filterBangkok(bangkok) {
+  getPins() {
+    return this.http.get('https://lit-beach-78782.herokuapp.com/api/pins').pipe(
+      map((pins: any) => {
+        const out = [];
+        for (const [key, value] of Object.entries(pins)) {
+          out.push(value);
+        }
+        return out.sort((pinA, pinB) => pinA.index - pinB.index);
+      })
+    );
+  }
+
+  addPins(payload) {
+    return this.http.post(
+      'https://lit-beach-78782.herokuapp.com/api/pins',
+      payload
+    );
+  }
+
+  deletePins(id) {
+    return this.http.delete(
+      `https://lit-beach-78782.herokuapp.com/api/pins/${id}`
+    );
+  }
+
+  updatePins(payload) {
+    return this.http.put(
+      `https://lit-beach-78782.herokuapp.com/api/pins/${payload.stationId}`,
+      payload
+    );
+  }
+
+  private filterBangkok(bangkok) {
     return bangkok.stations.filter((station) => {
       return station.areaTH.includes('สมุทรปราการ');
     });
   }
 
-  filterWest(west) {
+  private filterWest(west) {
     return west.stations.filter((station) => {
       return (
         !station.areaTH.includes('ปราจีนบุรี') &&
