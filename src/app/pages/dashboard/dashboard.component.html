@@ -1,1 +1,47 @@
-<p>dashboard works!</p>
+<div class="dashboard-container">
+  <div class="header">Summary</div>
+  <div class="filter-container" (click)="onFilterChanged($event)">
+    <div id="ทั้งหมด" class="filter-item selected">ทั้งหมด</div>
+    <div id="ชลบุรี" class="filter-item">ชลบุรี</div>
+    <div id="ระยอง" class="filter-item">ระยอง</div>
+    <div id="ฉะเชิงเทรา" class="filter-item">ฉะเชิงเทรา</div>
+    <div id="สมุทรปราการ" class="filter-item">สมุทรปราการ</div>
+  </div>
+  <div class="card-container">
+    <ng-container *ngFor="let item of displayedData">
+      <div class="cart-item">
+        <div class="nameTH">{{ item.nameTH }}</div>
+        <div class="areaTH">{{ item.areaTH }}</div>
+        <div class="nameEN">{{ item.nameEN }}</div>
+
+        <div class="areaEN">{{ item.areaEN }}</div>
+        <div class="air-value-container">
+          <div class="air-value-item">
+            <label>AQI</label>
+            <div class="value">{{ item.LastUpdate.AQI.aqi }}</div>
+          </div>
+          <div class="air-value-item">
+            <label>CO</label>
+            <div class="value">{{ item.LastUpdate.CO.value }}</div>
+          </div>
+          <div class="air-value-item">
+            <label>NO<sub>2</sub></label>
+            <div class="value">{{ item.LastUpdate.NO2.value }}</div>
+          </div>
+          <div class="air-value-item">
+            <label>PM<sub>10</sub></label>
+            <div class="value">{{ item.LastUpdate.PM10.value }}</div>
+          </div>
+          <div class="air-value-item">
+            <label>PM<sub>2.5</sub></label>
+            <div class="value">{{ item.LastUpdate.PM25.value }}</div>
+          </div>
+          <div class="air-value-item">
+            <label>SO<sub>2</sub></label>
+            <div class="value">{{ item.LastUpdate.SO2.value }}</div>
+          </div>
+        </div>
+      </div>
+    </ng-container>
+  </div>
+</div>

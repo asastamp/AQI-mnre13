@@ -6,16 +6,13 @@ import { map } from 'rxjs/operators';
   providedIn: 'root',
 })
 export class AppService {
+  readonly BASE_URL = 'https://lit-beach-78782.herokuapp.com';
   constructor(private http: HttpClient) {}
 
   retrieveData() {
     return forkJoin([
-      this.http.get(
-        `https://cors-anywhere.herokuapp.com/http://air4thai.pcd.go.th/services/getNewAQI_JSON.php?region=1`
-      ),
-      this.http.get(
-        `https://cors-anywhere.herokuapp.com/http://air4thai.pcd.go.th/services/getNewAQI_JSON.php?region=3`
-      ),
+      this.http.get(`${this.BASE_URL}/api/aqi/1`),
+      this.http.get(`${this.BASE_URL}/api/aqi/3`),
     ]).pipe(
       map(([bangkok, west]) => {
         const bangkokFilter = this.filterBangkok(bangkok);
@@ -38,21 +35,16 @@ export class AppService {
   }
 
   addPins(payload) {
-    return this.http.post(
-      'https://lit-beach-78782.herokuapp.com/api/pins',
-      payload
-    );
+    return this.http.post(`${this.BASE_URL}/api/pins`, payload);
   }
 
   deletePins(id) {
-    return this.http.delete(
-      `https://lit-beach-78782.herokuapp.com/api/pins/${id}`
-    );
+    return this.http.delete(`${this.BASE_URL}/api/pins/${id}`);
   }
 
   updatePins(payload) {
     return this.http.put(
-      `https://lit-beach-78782.herokuapp.com/api/pins/${payload.stationId}`,
+      `${this.BASE_URL}/api/pins/${payload.stationId}`,
       payload
     );
   }

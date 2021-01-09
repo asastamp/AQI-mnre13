@@ -1,0 +1,138 @@
+.dashboard-container {
+  margin: 10px 50px;
+}
+
+.header {
+  font-size: 32px;
+  font-weight: 700;
+  margin-left: 120px;
+}
+
+.filter-container {
+  display: flex;
+  margin: 30px 120px;
+  font-size: 20px;
+}
+
+.filter-item {
+  margin: 0 20px;
+  cursor: pointer;
+
+  &:first-child {
+    margin-left: 0;
+  }
+
+  &.selected {
+    border-bottom: 5px solid #315131;
+  }
+}
+
+.card-container {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+.cart-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 300px;
+  height: 300px;
+  margin: 20px;
+  padding: 20px;
+
+  border-radius: 20px;
+  background-color: white;
+  box-shadow: 0px 10px 13px -7px #000000;
+
+  > .nameTH {
+    font-size: 18px;
+    font-weight: 600;
+    text-align: center;
+  }
+
+  > .areaTH {
+    font-size: 16px;
+  }
+
+  > .nameEN,
+  > .areaEN {
+    font-size: 12px;
+    color: grey;
+  }
+}
+
+.air-value-container {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  margin-top: 10px;
+}
+
+.air-value-item {
+  margin: 5px 10px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  background-color: #ecf7e7;
+  border-radius: 40px;
+  color: #315131;
+  padding: 15px 10px;
+
+  > .value {
+    font-weight: 700;
+  }
+}
+
+@media only screen and (max-width: 800px) {
+  .header {
+    margin-left: 0;
+  }
+
+  .filter-container {
+    margin: 10px 0px;
+    font-size: 16px;
+  }
+
+  .filter-item {
+    margin: 0 10px;
+  }
+
+  .cart-item {
+    width: 500px;
+    height: 200px;
+    padding: 10px;
+  }
+
+  .air-value-item {
+    margin: 5px 5px;
+    font-size: 14px;
+    margin: 5px;
+    padding: 10px 7px;
+  }
+}
+
+@media only screen and (max-width: 500px) {
+  .dashboard-container {
+    margin: 10px 20px;
+  }
+
+  .cart-item {
+    width: 500px;
+    height: 270px;
+    padding: 20px;
+  }
+
+  .air-value-container {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+  }
+
+  .air-value-item {
+    margin: 5px;
+    font-size: 14px;
+    padding: 10px 7px;
+  }
+}

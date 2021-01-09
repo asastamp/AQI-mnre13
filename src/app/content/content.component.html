@@ -1,14 +1,19 @@
 <div class="one-page" id="one-page">
-    <div class="container">
-      <div class="header-onepage-section">
-        <span class="header-label">สถานการณ์ <span [innerHTML]="header"></span></span>
-        <span class="header-sublabel">เขตพื้นที่ภาคตะวันออก</span>
-        <span class="header-date-time"> {{ dateTime }} </span>
-      </div>
-      <app-map class="map-section" [type]="type"></app-map>
-      <div class="information-section">
-        <app-information-tube class="aqi-tube" [tube]="tubeData"></app-information-tube>
-      </div>
-    </div> 
-    <app-footer-onepage></app-footer-onepage>
+  <div class="container">
+    <div class="header-onepage-section">
+      <span class="header-label -font-bold"
+        >สถานการณ์ <span [innerHTML]="header" class="-font-bold"></span
+      ></span>
+      <span class="header-sublabel -font-bold">เขตพื้นที่ภาคตะวันออก</span>
+      <span class="header-date-time"> {{ dateTime }} </span>
+    </div>
+    <app-map class="map-section" [type]="type"></app-map>
+    <div class="information-section">
+      <app-information-tube
+        class="aqi-tube"
+        [tube]="tubeData"
+      ></app-information-tube>
+    </div>
+  </div>
+  <app-footer-onepage></app-footer-onepage>
 </div>

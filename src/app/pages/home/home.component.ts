@@ -26,7 +26,9 @@ export class HomeComponent {
   }
 
   async takeScreenshot() {
+    document.querySelector('app-header')['style'].display = 'none';
     html2canvas(document.querySelector('#one-page')).then((canvas) => {
+      document.querySelector('app-header')['style'].display = 'block';
       const a = document.createElement('a');
       a.href = canvas.toDataURL();
       const dateTime = moment().format('วันที่ DD_MM_YY เวลา HH_mm_ss');
