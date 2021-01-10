@@ -28,13 +28,18 @@ export class AppService {
   }
 
   getPins() {
+    if (this.cache.hasOwnProperty('pins')) {
+      return of(this.cache.pins);
+    }
     return this.http.get(`${this.BASE_URL}/api/pins`).pipe(
       map((pins: any) => {
         const out = [];
         for (const [key, value] of Object.entries(pins)) {
           out.push(value);
         }
-        return out.sort((pinA, pinB) => pinA.index - pinB.index);
+
+        this.cache.pins = out.sort((pinA, pinB) => pinA.index - pinB.index);
+        return this.cache.pins;
       })
     );
   }
