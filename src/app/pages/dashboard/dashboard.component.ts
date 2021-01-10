@@ -11,7 +11,9 @@ export class DashboardComponent implements OnInit {
   items;
   displayedData = [];
   currentTarget;
-  constructor(private service: AppService) {
+  constructor(private service: AppService) {}
+
+  ngOnInit(): void {
     this.service.retrieveData().subscribe((data) => {
       this.items = data;
       this.updateContent('ทั้งหมด');
@@ -20,8 +22,6 @@ export class DashboardComponent implements OnInit {
       );
     });
   }
-
-  ngOnInit(): void {}
 
   onFilterChanged(event) {
     const id = event.target.id;

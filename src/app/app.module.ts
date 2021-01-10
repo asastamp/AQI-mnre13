@@ -15,7 +15,7 @@ import { HeaderComponent } from './header/header.component';
 import { FooterOnepageComponent } from './footer-onepage/footer-onepage.component';
 
 import { PinManagerComponent } from './pages/pin-manager/pin-manager.component';
-import { HomeComponent } from './pages/home/home.component';
+import { OnePageComponent } from './pages/one-page/one-page.component';
 import { DashboardComponent } from './pages/dashboard/dashboard.component';
 
 @NgModule({
@@ -24,7 +24,7 @@ import { DashboardComponent } from './pages/dashboard/dashboard.component';
     InformationTubeComponent,
     ContentComponent,
     PinManagerComponent,
-    HomeComponent,
+    OnePageComponent,
     MapComponent,
     HeaderComponent,
     FooterOnepageComponent,

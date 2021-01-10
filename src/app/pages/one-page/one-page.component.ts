@@ -3,11 +3,11 @@ import html2canvas from 'html2canvas';
 import * as moment from 'moment';
 
 @Component({
-  selector: 'app-home',
-  templateUrl: './home.component.html',
-  styleUrls: ['./home.component.less'],
+  selector: 'app-one-page',
+  templateUrl: './one-page.component.html',
+  styleUrls: ['./one-page.component.less'],
 })
-export class HomeComponent {
+export class OnePageComponent {
   type: string;
 
   constructor() {

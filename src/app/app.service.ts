@@ -1,15 +1,19 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { forkJoin } from 'rxjs';
+import { forkJoin, of } from 'rxjs';
 import { map } from 'rxjs/operators';
 @Injectable({
   providedIn: 'root',
 })
 export class AppService {
   readonly BASE_URL = 'https://lit-beach-78782.herokuapp.com';
+  cache: any = {};
   constructor(private http: HttpClient) {}
 
   retrieveData() {
+    if (this.cache.hasOwnProperty('aqi')) {
+      return of(this.cache.aqi);
+    }
     return forkJoin([
       this.http.get(`${this.BASE_URL}/api/aqi/1`),
       this.http.get(`${this.BASE_URL}/api/aqi/3`),
@@ -17,13 +21,14 @@ export class AppService {
       map(([bangkok, west]) => {
         const bangkokFilter = this.filterBangkok(bangkok);
         const westFilter = this.filterWest(west);
-        return [...bangkokFilter, ...westFilter];
+        this.cache.aqi = [...bangkokFilter, ...westFilter];
+        return this.cache.aqi;
       })
     );
   }
 
   getPins() {
-    return this.http.get('https://lit-beach-78782.herokuapp.com/api/pins').pipe(
+    return this.http.get(`${this.BASE_URL}/api/pins`).pipe(
       map((pins: any) => {
         const out = [];
         for (const [key, value] of Object.entries(pins)) {
