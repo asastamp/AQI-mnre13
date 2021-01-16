@@ -5,30 +5,23 @@ import { ReactiveFormsModule } from '@angular/forms';
 
 import { AppComponent } from './app.component';
 import { AppService } from './app.service';
-import { InformationTubeComponent } from './information-tube/information-tube.component';
-import { ContentComponent } from './content/content.component';
 import { ServiceWorkerModule } from '@angular/service-worker';
 import { environment } from '../environments/environment';
 import { AppRoutingModule } from './app-routing.module';
-import { MapComponent } from './map/map.component';
-import { HeaderComponent } from './header/header.component';
-import { FooterOnepageComponent } from './footer-onepage/footer-onepage.component';
+
 
 import { PinManagerComponent } from './pages/pin-manager/pin-manager.component';
 import { OnePageComponent } from './pages/one-page/one-page.component';
 import { DashboardComponent } from './pages/dashboard/dashboard.component';
+import { OnePageContentModule } from './components/one-page-content/one-page-content.module';
+import { MapModule } from './components/shared/map/map.module';
 
 @NgModule({
   declarations: [
     AppComponent,
-    InformationTubeComponent,
-    ContentComponent,
     PinManagerComponent,
     OnePageComponent,
-    MapComponent,
-    HeaderComponent,
-    FooterOnepageComponent,
-    DashboardComponent,
+    DashboardComponent
   ],
   imports: [
     BrowserModule,
@@ -38,6 +31,8 @@ import { DashboardComponent } from './pages/dashboard/dashboard.component';
     }),
     AppRoutingModule,
     ReactiveFormsModule,
+    OnePageContentModule,
+    MapModule
   ],
   providers: [AppService],
   bootstrap: [AppComponent],

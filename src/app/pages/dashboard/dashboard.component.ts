@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { zip } from 'rxjs';
 
 import { AppService } from '../../app.service';
 
@@ -14,13 +15,21 @@ export class DashboardComponent implements OnInit {
   constructor(private service: AppService) {}
 
   ngOnInit(): void {
-    this.service.retrieveData().subscribe((data) => {
-      this.items = data;
-      this.updateContent('ทั้งหมด');
-      this.currentTarget = document.querySelector(
-        '.filter-container > .filter-item:first-child'
-      );
-    });
+    zip(this.service.retrieveData(), this.service.getPins()).subscribe(
+      ([stations, pins]: [any, any]) => {
+        this.items = pins.map((pin) => {
+          const stationObj = stations.find(station => station.stationID === pin.stationId);
+          if (stationObj) {
+            return stationObj;
+          }
+          return;
+        }).filter(pin => pin);
+        this.updateContent('ทั้งหมด');
+        this.currentTarget = document.querySelector(
+          '.filter-container > .filter-item:first-child'
+        );
+      }
+    );
   }
 
   onFilterChanged(event) {

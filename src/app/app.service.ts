@@ -17,11 +17,13 @@ export class AppService {
     return forkJoin([
       this.http.get(`${this.BASE_URL}/api/aqi/1`),
       this.http.get(`${this.BASE_URL}/api/aqi/3`),
+      this.http.get(`${this.BASE_URL}/api/aqi/7`)
     ]).pipe(
-      map(([bangkok, west]) => {
-        const bangkokFilter = this.filterBangkok(bangkok);
-        const westFilter = this.filterWest(west);
-        this.cache.aqi = [...bangkokFilter, ...westFilter];
+      map(([bangkok, west, center]: any) => {
+        const bangkokFilter = bangkok.stations;
+        const westFilter = west.stations;
+        const centerFilter = center.stations;
+        this.cache.aqi = [...bangkokFilter, ...westFilter, ...centerFilter];
         return this.cache.aqi;
       })
     );
@@ -44,33 +46,10 @@ export class AppService {
     );
   }
 
-  addPins(payload) {
-    return this.http.post(`${this.BASE_URL}/api/pins`, payload);
-  }
-
-  deletePins(id) {
-    return this.http.delete(`${this.BASE_URL}/api/pins/${id}`);
-  }
-
   updatePins(payload) {
     return this.http.put(
       `${this.BASE_URL}/api/pins/${payload.stationId}`,
       payload
     );
-  }
-
-  private filterBangkok(bangkok) {
-    return bangkok.stations.filter((station) => {
-      return station.areaTH.includes('สมุทรปราการ');
-    });
-  }
-
-  private filterWest(west) {
-    return west.stations.filter((station) => {
-      return (
-        !station.areaTH.includes('ปราจีนบุรี') &&
-        !station.areaTH.includes('สระแก้ว')
-      );
-    });
   }
 }

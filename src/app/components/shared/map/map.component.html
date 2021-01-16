@@ -1,0 +1,7 @@
+<div class="map-container" [ngClass]="{'edit': isEditMode}" (mousedown)="onMousedown($event)">
+  <img class="map-img" src="./assets/map.webp" alt="Map Error"/>
+  <ng-container *ngFor="let pin of pins">
+    <app-pin [id]="'pin-' + pin.index" class="pin" [pin]="pin"></app-pin>
+    <app-tooltip [id]="'tooltip-' + pin.index" class="tooltip" [pin]="pin"></app-tooltip>
+  </ng-container>
+</div>

@@ -1,15 +1,15 @@
 import { Component, OnInit, Input, ViewEncapsulation } from '@angular/core';
 import * as moment from 'moment';
 
-import { config } from '../app.metadata';
+import { Config } from '../../app.metadata';
 
 @Component({
-  selector: 'app-content',
-  templateUrl: './content.component.html',
-  styleUrls: ['./content.component.less'],
+  selector: 'app-one-page-content',
+  templateUrl: './one-page-content.component.html',
+  styleUrls: ['./one-page-content.component.less'],
   encapsulation: ViewEncapsulation.None,
 })
-export class ContentComponent {
+export class OnePageContentComponent {
   @Input() type: string;
 
   header: string;
@@ -24,8 +24,8 @@ export class ContentComponent {
   ngOnChanges(changes) {
     if (changes.type) {
       const type = changes.type.currentValue;
-      this.header = config.header[type];
-      this.tubeData = config.tube[type];
+      this.header = Config.header[type];
+      this.tubeData = Config.tube[type];
     }
   }
 
