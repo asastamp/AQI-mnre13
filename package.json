@@ -21,6 +21,7 @@
     "@angular/platform-browser-dynamic": "~9.1.0",
     "@angular/router": "~9.1.0",
     "@angular/service-worker": "~9.1.0",
+    "@auth0/angular-jwt": "^5.0.2",
     "html2canvas": "^1.0.0-rc.7",
     "moment": "^2.29.1",
     "rxjs": "~6.5.4",

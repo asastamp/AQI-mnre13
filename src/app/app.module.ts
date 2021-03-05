@@ -15,13 +15,23 @@ import { OnePageComponent } from './pages/one-page/one-page.component';
 import { DashboardComponent } from './pages/dashboard/dashboard.component';
 import { OnePageContentModule } from './components/one-page-content/one-page-content.module';
 import { MapModule } from './components/shared/map/map.module';
+import { LoginComponent } from './pages/login/login.component';
+import { AuthService } from './auth.service';
+import { AuthGuard } from './auth-guard.guard';
+import { JwtHelperService, JwtModule } from '@auth0/angular-jwt';
+
+
+export function tokenGetter() {
+  return localStorage.getItem("access_token");
+}
 
 @NgModule({
   declarations: [
     AppComponent,
     PinManagerComponent,
     OnePageComponent,
-    DashboardComponent
+    DashboardComponent,
+    LoginComponent
   ],
   imports: [
     BrowserModule,
@@ -32,9 +42,16 @@ import { MapModule } from './components/shared/map/map.module';
     AppRoutingModule,
     ReactiveFormsModule,
     OnePageContentModule,
-    MapModule
+    MapModule,
+    JwtModule.forRoot({
+      config: {
+        tokenGetter: tokenGetter,
+        allowedDomains: ["example.com"],
+        disallowedRoutes: ["http://example.com/examplebadroute/"],
+      },
+    })
   ],
-  providers: [AppService],
+  providers: [AppService, AuthService, AuthGuard],
   bootstrap: [AppComponent],
 })
 export class AppModule {}

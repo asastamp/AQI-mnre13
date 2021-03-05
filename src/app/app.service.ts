@@ -6,7 +6,7 @@ import { map } from 'rxjs/operators';
   providedIn: 'root',
 })
 export class AppService {
-  readonly BASE_URL = 'https://lit-beach-78782.herokuapp.com';
+  readonly BASE_URL = 'https://aqi-reo13.herokuapp.com';
   cache: any = {};
   constructor(private http: HttpClient) {}
 

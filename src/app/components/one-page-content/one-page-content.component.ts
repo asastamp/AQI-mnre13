@@ -14,8 +14,39 @@ export class OnePageContentComponent {
 
   header: string;
   tubeData;
+  days: number;
   pins: Array<any>;
   dateTime: string;
+  daysColor = [
+    {
+      day: "อาทิตย์",
+      selector: "sun"
+    },
+    {
+      day: "จันทร์",
+      selector: "mon"
+    },
+    {
+      day: "อังคาร",
+      selector: "tue"
+    },
+    {
+      day: "พุธ",
+      selector: "wed"
+    },
+    {
+      day: "พฤหัสบดี",
+      selector: "thu"
+    },
+    {
+      day: "ศุกร์",
+      selector: "fri"
+    },
+    {
+      day: "เสาร์",
+      selector: "sat"
+    }
+  ]
 
   constructor() {
     this.setDateTime();
@@ -35,6 +66,7 @@ export class OnePageContentComponent {
       moment(),
       'วันที่ D MMMM YYYY เวลา HH:00 น.'
     );
+    this.days = moment().day();
   }
 
   private toBuddhistYear(moment, format) {
