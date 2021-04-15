@@ -46,12 +46,13 @@ export const Config = {
 
 export interface PinPosition {
   index: number;
-  province: string;
+  province?: string;
   stationId: string;
   tooltipX: number;
   tooltipY: number;
   x: number;
   y: number;
+  zIndex?: number;
 }
 
 export interface Station {

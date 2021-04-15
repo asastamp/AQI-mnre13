@@ -96,7 +96,7 @@ export class MapComponent {
     }
 
     this.pinPosition.forEach((position, i) => {
-      const { stationId, x, y, tooltipX, tooltipY, province } = position;
+      const { stationId, x, y, tooltipX, tooltipY, province, zIndex } = position;
       const station: Station = stations.find(station => station.stationID === stationId);
       if (!station) {
         return;
@@ -116,6 +116,7 @@ export class MapComponent {
         color: this[`get${id}Color`](+value),
         provinceColor: this.getProvinceColor(station.areaTH),
         isValid: this.isValidValue(station.LastUpdate),
+        zIndex: zIndex ? zIndex : 0
       };
       output.push(shownData);
     });

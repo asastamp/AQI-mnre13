@@ -1,6 +1,6 @@
 <span
     style="position: absolute; width: 32px; height: 36px"
-    [ngStyle]="{ top: pin.y, left: pin.x, fill: pin.color }"
+    [ngStyle]="{ top: pin.y, left: pin.x, fill: pin.color, 'z-index': pin.zIndex }"
 >
     <div class="pin-index">{{ pin.index }}</div>
     <svg
