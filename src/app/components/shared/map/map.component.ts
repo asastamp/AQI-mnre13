@@ -3,7 +3,15 @@ import { zip } from 'rxjs';
 import * as moment from 'moment';
 
 import { AppService } from '../../../app.service';
-import { Config, DisplayData, PinColor, PinPosition, ProvinceColor, Station } from '../../../app.metadata';
+import {
+  Config,
+  DisplayData,
+  PinColor,
+  PinPosition,
+  ProvinceColor,
+  DarkenProvinceColor,
+  Station,
+} from '../../../app.metadata';
 @Component({
   selector: 'app-map',
   templateUrl: './map.component.html',
@@ -11,7 +19,7 @@ import { Config, DisplayData, PinColor, PinPosition, ProvinceColor, Station } fr
 })
 export class MapComponent {
   @Input() type: string;
-  @Input() isEditMode : boolean;
+  @Input() isEditMode: boolean;
   cache: { aqi?: Array<DisplayData>; pm25?: Array<DisplayData> };
   pins: Array<DisplayData>;
   pinPosition: Array<PinPosition>;
@@ -23,14 +31,14 @@ export class MapComponent {
     zip(this.service.retrieveData(), this.service.getPins()).subscribe(
       ([stations, pinPosition]: [any, Array<PinPosition>]) => {
         this.stations = stations;
-        this.pinPosition = pinPosition;    
+        this.pinPosition = pinPosition;
         this.cache.aqi = this.constructOutput(stations, 'aqi');
         this.pins = this.cache.aqi;
       }
     );
   }
 
-  ngOnChanges(changes: { type: { currentValue: string }}): void {
+  ngOnChanges(changes: { type: { currentValue: string } }): void {
     if (changes.type) {
       const type = changes.type.currentValue;
       if (this.cache.hasOwnProperty(type)) {
@@ -46,7 +54,13 @@ export class MapComponent {
       return;
     }
     event.preventDefault();
-    const target = [].slice.call(event['path']).find(element => element.id && (element.id.startsWith('tooltip-') || element.id.startsWith('pin-')));
+    const target = [].slice
+      .call(event['path'])
+      .find(
+        (element) =>
+          element.id &&
+          (element.id.startsWith('tooltip-') || element.id.startsWith('pin-'))
+      );
     if (target) {
       this.dragElement(target);
     }
@@ -65,7 +79,7 @@ export class MapComponent {
       document.onmouseup = closeDragElement;
       // call a function whenever the cursor moves:
       document.onmousemove = elementDrag;
-    }
+    };
 
     const elementDrag = (event: MouseEvent) => {
       event.preventDefault();
@@ -75,18 +89,20 @@ export class MapComponent {
       pos3 = event.clientX;
       pos4 = event.clientY;
       // set the element's new position:
-      elem.style.top = (elem.offsetTop - pos2) + "px";
-      elem.style.left = (elem.offsetLeft - pos1) + "px";
-    }
+      elem.style.top = elem.offsetTop - pos2 + 'px';
+      elem.style.left = elem.offsetLeft - pos1 + 'px';
+    };
 
     const closeDragElement = () => {
       document.onmouseup = null;
       document.onmousemove = null;
-    }
+    };
 
-    let pos1 = 0, pos2 = 0, pos3 = 0, pos4 = 0;
+    let pos1 = 0,
+      pos2 = 0,
+      pos3 = 0,
+      pos4 = 0;
     elem.onmousedown = dragMouseDown;
-
   }
 
   constructOutput(stations: Array<Station>, type: string): Array<DisplayData> {
@@ -96,14 +112,20 @@ export class MapComponent {
     }
 
     this.pinPosition.forEach((position, i) => {
-      const { stationId, x, y, tooltipX, tooltipY, province, zIndex } = position;
-      const station: Station = stations.find(station => station.stationID === stationId);
+      const { stationId, x, y, tooltipX, tooltipY, province, zIndex } =
+        position;
+      const station: Station = stations.find(
+        (station) => station.stationID === stationId
+      );
       if (!station) {
         return;
       }
 
       const id = type.toUpperCase();
       const value = station.LastUpdate[id][Config.path[type]];
+      const { provinceColor, darkenProvinceColor } = this.getProvinceColor(
+        station.areaTH
+      );
       const shownData = {
         index: i + 1,
         x,
@@ -114,9 +136,10 @@ export class MapComponent {
         location: station.areaTH.split(',')[0],
         value,
         color: this[`get${id}Color`](+value),
-        provinceColor: this.getProvinceColor(station.areaTH),
+        provinceColor: provinceColor,
+        darkenProvinceColor: darkenProvinceColor,
         isValid: this.isValidValue(station.LastUpdate),
-        zIndex: zIndex ? zIndex : 0
+        zIndex: zIndex ? zIndex : 0,
       };
       output.push(shownData);
     });
@@ -151,15 +174,24 @@ export class MapComponent {
     }
   }
 
-  private getProvinceColor(value: string): string {
+  private getProvinceColor(value: string): any {
     if (!value || typeof value !== 'string') {
       return;
     }
     const province = value.split(',')[1].trim();
-    return ProvinceColor[province];
+    return {
+      provinceColor: ProvinceColor[province],
+      darkenProvinceColor: DarkenProvinceColor[province],
+    };
   }
 
-  private isValidValue({ date, time }: { date: string; time: string }): boolean {
+  private isValidValue({
+    date,
+    time,
+  }: {
+    date: string;
+    time: string;
+  }): boolean {
     const lastUpdated = moment(`${date} ${time}`);
     const diff = moment().diff(lastUpdated, 'hours');
     return diff <= 1;

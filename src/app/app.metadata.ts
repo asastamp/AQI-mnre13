@@ -15,6 +15,15 @@ export const ProvinceColor = {
   ตราด: '#E8BFFF',
 };
 
+export const DarkenProvinceColor = {
+  ชลบุรี: '#e6d59b',
+  ฉะเชิงเทรา: '#92ffd7',
+  ระยอง: '#dafd92',
+  จันทบุรี: '#fd92d8',
+  สมุทรปราการ: '#ff9290',
+  ตราด: '#d792ff',
+};
+
 export const Config = {
   tube: {
     aqi: {
@@ -60,34 +69,34 @@ export interface Station {
     date: string;
     time: string;
     AQI: {
-      Level: string; 
+      Level: string;
       aqi: string;
-    }
+    };
     CO: {
-      value: string, 
-      unit: string
-    }
+      value: string;
+      unit: string;
+    };
     NO2: {
-      value: string, 
-      unit: string
-    }
+      value: string;
+      unit: string;
+    };
     O3: {
-      value: string, 
-      unit: string
-    }
+      value: string;
+      unit: string;
+    };
     PM10: {
-      value: string, 
-      unit: string
-    }
+      value: string;
+      unit: string;
+    };
     PM25: {
-      value: string, 
-      unit: string
-    }
+      value: string;
+      unit: string;
+    };
     SO2: {
-      value: string, 
-      unit: string
-    }
-  }
+      value: string;
+      unit: string;
+    };
+  };
   areaEN: string;
   areaTH: string;
   forecast: Array<any>;

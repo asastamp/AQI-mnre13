@@ -1,15 +1,33 @@
-<div class="tooltip-province" [ngStyle]="{ top: pin.tooltipY - 40, left: pin.tooltipX, 'background-color': pin.provinceColor }">
-    {{ pin.province }}
+<div
+  class="tooltip-province"
+  [ngStyle]="{
+    top: pin.tooltipY - 40,
+    left: pin.tooltipX,
+    'background-color': pin.darkenProvinceColor
+  }"
+>
+  {{ pin.province }}
 </div>
 
-<div class="tooltip-container" [ngStyle]="{ top: pin.tooltipY, left: pin.tooltipX }">
-    <div class="index">{{ pin.index }}</div>
-    <div class="location" [ngStyle]="{ 'background-color': pin.provinceColor }">
-        {{ pin.location }}
+<div
+  class="tooltip-container"
+  [ngStyle]="{ top: pin.tooltipY, left: pin.tooltipX }"
+>
+  <div
+    class="index"
+    [ngStyle]="{ 'background-color': pin.darkenProvinceColor }"
+  >
+    {{ pin.index }}
+  </div>
+  <div class="location" [ngStyle]="{ 'background-color': pin.provinceColor }">
+    {{ pin.location }}
+  </div>
+  <div class="content">
+    <div
+      class="value"
+      [ngStyle]="{ 'background-color': pin.isValid ? pin.color : '' }"
+    >
+      {{ pin.isValid ? pin.value : "-" }}
     </div>
-    <div class="content">
-        <div class="value" [ngStyle]="{ 'background-color': pin.isValid ? pin.color : '' }">
-            {{ pin.isValid ? pin.value : "-" }}
-        </div>
-    </div>
+  </div>
 </div>
