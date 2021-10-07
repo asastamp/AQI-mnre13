@@ -3,14 +3,14 @@
   [ngStyle]="{
     top: pin.y,
     left: pin.x,
-    fill: pin.isValid ? pin.color : '',
+    fill: pin.isValid ? pin.color : '#fff',
     'z-index': pin.zIndex
   }"
 >
   <div class="pin-index">{{ pin.index }}</div>
   <svg
     style="width: 32px; height: 36px"
-    [attr.fill]="pin.color"
+    [attr.fill]="pin.isValid ? pin.color : '#fff'"
     stroke="black"
     stroke-width="1"
     class="pin"
