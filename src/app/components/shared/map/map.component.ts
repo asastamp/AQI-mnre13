@@ -138,7 +138,7 @@ export class MapComponent {
         color: this[`get${id}Color`](+value),
         provinceColor: provinceColor,
         darkenProvinceColor: darkenProvinceColor,
-        isValid: this.isValidValue(station.LastUpdate),
+        isValid: this.isValidValue(station.LastUpdate, value),
         zIndex: zIndex ? zIndex : 0,
       };
       output.push(shownData);
@@ -185,15 +185,18 @@ export class MapComponent {
     };
   }
 
-  private isValidValue({
-    date,
-    time,
-  }: {
-    date: string;
-    time: string;
-  }): boolean {
+  private isValidValue(
+    {
+      date,
+      time,
+    }: {
+      date: string;
+      time: string;
+    },
+    value: string
+  ): boolean {
     const lastUpdated = moment(`${date} ${time}`);
     const diff = moment().diff(lastUpdated, 'hours');
-    return diff <= 1;
+    return diff <= 1 && !isNaN(+value);
   }
 }
