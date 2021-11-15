@@ -1,15 +1,16 @@
 <div class="one-page" id="one-page">
   <div class="container">
     <div class="header-onepage-section ribbon">
-      <span class="header-label -font-bold"
-        >สถานการณ์ <span [innerHTML]="header" class="-font-bold"></span
-      ></span>
-      <span class="header-sublabel -font-bold">เขตพื้นที่ภาคตะวันออก</span>
-      <span class="header-date-time"> {{ dateTime }} </span>
-<!-- 
-        <div class="ribbon1" [ngClass]="daysColor[days].selector">
-          <span>อากาศวัน{{ daysColor[days].day }}</span>
-        </div> -->
+      <div class="header-onepage-section__left">
+        <div class="header-label -font-bold">
+          สถานการณ์<span [innerHTML]="header" class="-font-bold"></span>
+        </div>
+        <div class="header-sublabel -font-bold">เขตพื้นที่ภาคตะวันออก</div>
+      </div>
+      <div class="header-onepage-section__right">
+        <div class="header-date-time">{{ date }}</div>
+        <div class="header-date-time">{{ time }}</div>
+      </div>
     </div>
     <app-map class="map-section" [type]="type"></app-map>
     <div class="information-section">

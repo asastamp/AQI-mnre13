@@ -43,166 +43,164 @@
   width: 128px;
 }
 
-.ribbon1 span:before, .ribbon1 span:after {
+.ribbon1 span:before,
+.ribbon1 span:after {
   position: absolute;
   content: "";
 }
 
 .ribbon1 span:before {
- height: 6px;
- width: 6px;
- left: -6px;
- top: 0;
+  height: 6px;
+  width: 6px;
+  left: -6px;
+  top: 0;
 }
 
 .ribbon1 span:after {
- height: 6px;
- width: 8px;
- left: -8px;
- top: 0;
- border-radius: 8px 8px 0 0;
+  height: 6px;
+  width: 8px;
+  left: -8px;
+  top: 0;
+  border-radius: 8px 8px 0 0;
 }
 
 .sun {
-  background-color: #F17170;
+  background-color: #f17170;
   color: #921927;
 
   &:after {
-    border-top: 10px solid #F17170;
+    border-top: 10px solid #f17170;
   }
 
   > span {
-    background: #F17170;
+    background: #f17170;
     &:before {
-      background: #F17170;
+      background: #f17170;
     }
     &:after {
-      background: #D54545;
+      background: #d54545;
     }
   }
 }
 
 .mon {
-  background-color: #FECE72;
+  background-color: #fece72;
   color: #977115;
 
   &:after {
-    border-top: 10px solid #FECE72;
+    border-top: 10px solid #fece72;
   }
 
   > span {
-    background: #FECE72;
+    background: #fece72;
     &:before {
-      background: #FECE72;
+      background: #fece72;
     }
     &:after {
-      background: #E5B045;
+      background: #e5b045;
     }
   }
 }
 
 .tue {
-  background-color: #FE71B6;
+  background-color: #fe71b6;
   color: #a00864;
 
   &:after {
-    border-top: 10px solid #FE71B6;
+    border-top: 10px solid #fe71b6;
   }
 
   > span {
-    background: #FE71B6;
+    background: #fe71b6;
     &:before {
-      background: #FE71B6;
+      background: #fe71b6;
     }
     &:after {
-      background: #E64495;
+      background: #e64495;
     }
   }
 }
 
 .wed {
-  background-color: #A3D471;
+  background-color: #a3d471;
   color: #487819;
 
   &:after {
-    border-top: 10px solid #A3D471;
+    border-top: 10px solid #a3d471;
   }
 
   > span {
-    background: #A3D471;
+    background: #a3d471;
     &:before {
-      background: #A3D471;
+      background: #a3d471;
     }
     &:after {
-      background: #7DB543;
+      background: #7db543;
     }
   }
 }
 
-
 .thu {
-  background-color: #FEA170;
+  background-color: #fea170;
   color: #9a4c20;
 
   &:after {
-    border-top: 10px solid #FEA170;
+    border-top: 10px solid #fea170;
   }
 
   > span {
-    background: #FEA170;
+    background: #fea170;
     &:before {
-      background: #FEA170;
+      background: #fea170;
     }
     &:after {
-      background: #E57B44;
+      background: #e57b44;
     }
   }
 }
 
 .fri {
-  background-color: #73CFFE;
+  background-color: #73cffe;
   color: #00749e;
-  
+
   &:after {
-    border-top: 10px solid #73CFFE;
+    border-top: 10px solid #73cffe;
   }
 
   > span {
-    background: #73CFFE;
+    background: #73cffe;
     &:before {
-      background: #73CFFE;
+      background: #73cffe;
     }
     &:after {
-      background: #45B0E6;
+      background: #45b0e6;
     }
   }
 }
 
 .sat {
-  background-color: #B38CFF;
+  background-color: #b38cff;
   color: #5b3da6;
 
   &:after {
-    border-top: 10px solid #B38CFF;
+    border-top: 10px solid #b38cff;
   }
 
   > span {
-    background: #B38CFF;
+    background: #b38cff;
     &:before {
-      background: #B38CFF;
+      background: #b38cff;
     }
     &:after {
-      background: #9064E5;
+      background: #9064e5;
     }
   }
 }
 
-
 .header-onepage-section {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  grid-template-rows: 50px 50px 30px;
+  display: grid;
+  align-items: stretch;
+  grid-template-columns: 65% 35%;
   color: darken(#7ac141, 10%);
   font-size: 36px;
   background-color: white;
@@ -211,13 +209,28 @@
   text-align: center;
   position: relative;
 
-  > .header-sublabel {
+  > .header-onepage-section__left {
+    border-right: 1px solid grey;
+  }
+
+  > .header-onepage-section__right {
+    display: grid;
+    align-items: center;
+    margin: auto;
+  }
+
+  .header-sublabel {
     color: #7ac141;
   }
 
-  > .header-date-time {
-    font-size: 16px;
+  .header-date-time {
+    font-size: 24px;
     color: black;
+    height: 100%;
+
+    &:first-child {
+      border-bottom: 1px solid grey;
+    }
   }
 }
 

@@ -16,37 +16,38 @@ export class OnePageContentComponent {
   tubeData;
   days: number;
   pins: Array<any>;
-  dateTime: string;
+  date: string;
+  time: string;
   daysColor = [
     {
-      day: "อาทิตย์",
-      selector: "sun"
+      day: 'อาทิตย์',
+      selector: 'sun',
     },
     {
-      day: "จันทร์",
-      selector: "mon"
+      day: 'จันทร์',
+      selector: 'mon',
     },
     {
-      day: "อังคาร",
-      selector: "tue"
+      day: 'อังคาร',
+      selector: 'tue',
     },
     {
-      day: "พุธ",
-      selector: "wed"
+      day: 'พุธ',
+      selector: 'wed',
     },
     {
-      day: "พฤหัสบดี",
-      selector: "thu"
+      day: 'พฤหัสบดี',
+      selector: 'thu',
     },
     {
-      day: "ศุกร์",
-      selector: "fri"
+      day: 'ศุกร์',
+      selector: 'fri',
     },
     {
-      day: "เสาร์",
-      selector: "sat"
-    }
-  ]
+      day: 'เสาร์',
+      selector: 'sat',
+    },
+  ];
 
   constructor() {
     this.setDateTime();
@@ -55,17 +56,16 @@ export class OnePageContentComponent {
   ngOnChanges(changes) {
     if (changes.type) {
       const type = changes.type.currentValue;
-      this.header = Config.header[type];
+      this.header =
+        type === 'aqi' ? `${Config.header[type]}` : ` ${Config.header[type]}`;
       this.tubeData = Config.tube[type];
     }
   }
 
   private setDateTime(): void {
     moment.locale('th');
-    this.dateTime = this.toBuddhistYear(
-      moment(),
-      'วันที่ D MMMM YYYY เวลา HH:00 น.'
-    );
+    this.date = this.toBuddhistYear(moment(), 'D MMMM YYYY');
+    this.time = this.toBuddhistYear(moment(), 'HH:00 น.');
     this.days = moment().day();
   }
 
